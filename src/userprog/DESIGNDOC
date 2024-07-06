@@ -1,0 +1,212 @@
+		     +--------------------------+
+         |          CS 2042         |
+		     | PROJECT 2: USER PROGRAMS	|
+		     | 	   DESIGN DOCUMENT     	|
+		     +--------------------------+
+
+---- PRELIMINARIES ----
+
+>> If you have any preliminary comments on your submission, notes for the
+>> TAs, or extra credit, please give them here.
+
+>> Please cite any offline or online sources you consulted while
+>> preparing your submission, other than the Pintos documentation, course
+>> text, lecture notes, and course staff.
+
+None.
+
+			   ARGUMENT PASSING
+			   ================
+
+---- DATA STRUCTURES ----
+
+>> A1: Copy here the declaration of each new or changed `struct' or
+>> `struct' member, global or static variable, `typedef', or
+>> enumeration.  Identify the purpose of each in 25 words or less.
+
+No changes.
+
+---- ALGORITHMS ----
+
+>> A2: Briefly describe how you implemented argument parsing.  How do
+>> you arrange for the elements of argv[] to be in the right order?
+>> How do you avoid overflowing the stack page?
+
+- `strtok_r` is used to split the command line by spaces, and the first token (program name) is set as the name of the new thread
+- The arguments are then placed one by one into the stack
+- Then the stack is set up according to the "Program Startup Details" section
+
+---- RATIONALE ----
+
+>> A3: Why does Pintos implement strtok_r() but not strtok()?
+
+- `strtok` stores the last position separately, while `strtok_r` allows a second pointer argument to store that
+- `strtok` is therefore unsafe in threaded programs
+
+>> A4: In Pintos, the kernel separates commands into a executable name
+>> and arguments.  In Unix-like systems, the shell does this
+>> separation.  Identify at least two advantages of the Unix approach.
+
+1. UNIX shell is not dependent on the kernel. User can use a different shell if they want
+2. If there's a problem when separating arguments, it could crash the kernel itself, while in UNIX, it would only crash the shell
+
+			     SYSTEM CALLS
+			     ============
+
+---- DATA STRUCTURES ----
+
+>> B1: Copy here the declaration of each new or changed `struct' or
+>> `struct' member, global or static variable, `typedef', or
+>> enumeration.  Identify the purpose of each in 25 words or less.
+
+- Process control block (contains information about process)
+Only used for child processes
+
+struct process_control_block {
+  pid_t pid;                              /* Process ID, same as thread ID. */
+  struct list_elem elem;                  /* List element for child processes list. */
+  char *command;                          /* Command running in process. */
+
+  bool waiting;                           /* Is process being waited on. */
+  bool exited;                            /* Has process exited. */
+  int exit_code;                          /* Exit code of process. */
+
+  struct semaphore waiting_sema;          /* Semaphore to synchronize `process_wait`. */
+  struct semaphore initialization_sema;   /* Semaphore to synchronize process initialization. */
+};
+
+- New members for struct thread
+
+  struct process_control_block *pcb;  /* Process control block. */
+  struct list child_list;             /* List of child processes. */
+  struct list file_descriptors;       /* List of open files. */
+
+- File descriptor
+Stored in `file_descriptors` list of `struct thread`
+
+struct file_desc {
+  int id;                 /* fd value. */
+  struct list_elem elem;  /* List element for open files list. */
+  struct file *file;      /* File. */
+};
+
+>> B2: Describe how file descriptors are associated with open files.
+>> Are file descriptors unique within the entire OS or just within a
+>> single process?
+
+- Each process has a list of open files, and the file descriptor is unique within that process
+- Each `file_desc` element in that list has a `struct file` member and an `int id` member
+
+---- ALGORITHMS ----
+
+>> B3: Describe your code for reading and writing user data from the
+>> kernel.
+
+- We check if a pointer points below `PHYS_BASE` and then dereference it
+- An invalid user pointer will cause a page fault, which we handle in `page_fault`
+- In `page_fault`, we set the next instruction to `f->eax`, and set `f->eax` to `0xfffffff`. This way, we jump to the instruction that caused the page fault
+
+>> B4: Suppose a system call causes a full page (4,096 bytes) of data
+>> to be copied from user space into the kernel.  What is the least
+>> and the greatest possible number of inspections of the page table
+>> (e.g. calls to pagedir_get_page()) that might result?  What about
+>> for a system call that only copies 2 bytes of data?  Is there room
+>> for improvement in these numbers, and how much?
+
+>> B5: Briefly describe your implementation of the "wait" system call
+>> and how it interacts with process termination.
+
+- `wait` directly calls `process_wait`
+- In `process_wait`, we iterate through the list of child processes and find the relevant one
+- The status is marked as waiting, and `down` is called on the `wait` semaphore
+- That semaphore will have `up` called on it when the process exits
+- So when that call to `down` returns, the process will have exited, so we remove it from the child list and return the exit code
+
+>> B6: Any access to user program memory at a user-specified address
+>> can fail due to a bad pointer value.  Such accesses must cause the
+>> process to be terminated.  System calls are fraught with such
+>> accesses, e.g. a "write" system call requires reading the system
+>> call number from the user stack, then each of the call's three
+>> arguments, then an arbitrary amount of user memory, and any of
+>> these can fail at any point.  This poses a design and
+>> error-handling problem: how do you best avoid obscuring the primary
+>> function of code in a morass of error-handling?  Furthermore, when
+>> an error is detected, how do you ensure that all temporarily
+>> allocated resources (locks, buffers, etc.) are freed?  In a few
+>> paragraphs, describe the strategy or strategies you adopted for
+>> managing these issues.  Give an example.
+
+- In case of error, the function that accesses memory exits the process themselves
+- `goto` statements are used to centralize error handling
+- When exiting, any memory is freed, and locks are released
+
+---- SYNCHRONIZATION ----
+
+>> B7: The "exec" system call returns -1 if loading the new executable
+>> fails, so it cannot return before the new executable has completed
+>> loading.  How does your code ensure this?  How is the load
+>> success/failure status passed back to the thread that calls "exec"?
+
+- Because of the initialization semaphore, `process_execute` can only complete after executable is loaded
+- Success status is communicated through `pcb->pid` to `process_execute` from `start_process`
+- This is then returned to wherever `process_execute` was called from (eg: from `exec` system call)
+
+>> B8: Consider parent process P with child process C.  How do you
+>> ensure proper synchronization and avoid race conditions when P
+>> calls wait(C) before C exits?  After C exits?  How do you ensure
+>> that all resources are freed in each case?  How about when P
+>> terminates without waiting, before C exits?  After C exits?  Are
+>> there any special cases?
+
+- A waiting semaphore is used
+- It is only `down`ed if the child process is executed
+- Status (running, being waited on, exited) is stored in the pcb, which the parent checks
+
+---- RATIONALE ----
+
+>> B9: Why did you choose to implement access to user memory from the
+>> kernel in the way that you did?
+
+- It is faster because it takes advantage of processor's MMU
+
+>> B10: What advantages or disadvantages can you see to your design
+>> for file descriptors?
+
+Advantages
+- Simpler
+- Getting a new fd when opening a file is as simple as getting the last
+  element in the list of open files and adding one to it's fd
+Disadvantages
+- As we don't reuse fd values (unless at some point there are no open
+  files), we keep incrementing. So the total files that can be opened
+  during a process's lifetime is limited to the size of `int`
+
+>> B11: The default tid_t to pid_t mapping is the identity mapping.
+>> If you changed it, what advantages are there to your approach?
+
+			   SURVEY QUESTIONS
+			   ================
+
+Answering these questions is optional, but it will help us improve the
+course in future quarters.  Feel free to tell us anything you
+want--these questions are just to spur your thoughts.  You may also
+choose to respond anonymously in the course evaluations at the end of
+the quarter.
+
+>> In your opinion, was this assignment, or any one of the three problems
+>> in it, too easy or too hard?  Did it take too long or too little time?
+
+- Handling user memory access and implementing `process_wait` was difficult
+- It took too long to handle all the edge cases
+
+>> Did you find that working on a particular part of the assignment gave
+>> you greater insight into some aspect of OS design?
+
+>> Is there some particular fact or hint we should give students in
+>> future quarters to help them solve the problems?  Conversely, did you
+>> find any of our guidance to be misleading?
+
+>> Do you have any suggestions for the TAs to more effectively assist
+>> students, either for future quarters or the remaining projects?
+
+>> Any other comments?
