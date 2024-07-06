@@ -1,30 +1,20 @@
 <h1 align="center">PintOS Operating System </h1>
 <p align="center"><i>Implementing educational operating system</i></p>
-https://github.com/ThisaraWeerakoon/PintOS_Sem3/stargazers
-<div align="center">
-  <a href="https://github.com/ThisaraWeerakoon/PintOS_Sem3/stargazers"><img src="https://img.shields.io/github/stars/ThisaraWeerakoon/PintOS_Sem3" alt="Stars Badge"/></a>
-<a href="https://github.com/elangosundar/awesome-README-templates/network/members"><img src="https://img.shields.io/github/forks/elangosundar/awesome-README-templates" alt="Forks Badge"/></a>
-<a href="https://github.com/elangosundar/awesome-README-templates/pulls"><img src="https://img.shields.io/github/issues-pr/elangosundar/awesome-README-templates" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/elangosundar/awesome-README-templates/issues"><img src="https://img.shields.io/github/issues/elangosundar/awesome-README-templates" alt="Issues Badge"/></a>
-<a href="https://github.com/elangosundar/awesome-README-templates/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/elangosundar/awesome-README-templates?color=2b9348"></a>
-<a href="https://github.com/elangosundar/awesome-README-templates/blob/master/LICENSE"><img src="https://img.shields.io/github/license/elangosundar/awesome-README-templates?color=2b9348" alt="License Badge"/></a>
-</div>
-<br>
-<p align="center"><i>Loved the project? Please visit our <a href="https://awesome-github-readme-profile.netlify.app">Website</a></i></p>
-<br>
-This repo aims to collect the all `awesome beautiful READMEs profile` and make your Profile look good & Inspire other's.
 
-If you are intersted, will create a PR for to add your `README` profile here.
+As part of the <b>CS2043 - Operating Systems</b> module, I undertook this project involving the Pintos teaching operating system, which is designed for the 80x86 architecture. Pintos is a simple and small OS, making it ideal for educational purposes. Despite its simplicity, it supports essential OS concepts such as kernel threads, virtual memory, user programs, and file systems. However, its initial implementations are often incomplete or premature, so what I did was strengthen those already provided systems. I did it in two steps.
 
-If you like this Repo, Please click the :star:
+List of `PintOS Operating System` categories mentioned below
 
-List of `awesome README Profile` categories mentioned below
+## Step 1 : Implementing the Thread System
 
-## Contents
-  - [Github README PROFILE CATEGORY](#github-readme-profile-category)
-  - [List out `Awesome README Profile` Tools](#list-out-awesome-readme-profile-tools)
-  - [List out `Awesome README Profile` Articles](#list-out-awesome-readme-profile-articles)
-  - [Contribute](#contribute)
+In this segment of the project, I was provided with a minimally functional thread system. My task was to extend this system's functionality to gain a deeper understanding of synchronization problems. The primary focus was on the **threads** directory, with some additional work in the **devices** directory. Compilation of the project was carried out within the **threads** directory.
+
+To achieve this, I utilized various synchronization techniques, including **semaphores**, **locks**, **monitors**, and **interrupt handling**. These techniques were essential in managing concurrency and ensuring that threads operated correctly without conflicts or data inconsistencies.
+
+The following table contains the list of functions the shell should support
+alongside with a brief description of what they are supposed to do.
+
+<img src="" alt="Awesome README Templates" />
 
 ## Website
 
