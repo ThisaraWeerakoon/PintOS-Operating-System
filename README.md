@@ -1,14 +1,86 @@
-# Pintos
-Labs for undergraduate OS class (600.318) at Johns Hopkins. [Pintos](http://pintos-os.org) 
-is a teaching operating system for x86, challenging but not overwhelming, small
-but realistic enough to understand OS in depth (it can run x86 machine and simulators 
-including QEMU, Bochs and VMWare Player!). The main source code, documentation and assignments 
-are developed by Ben Pfaff and others from Stanford (refer to its [LICENSE](src/LICENSE)).
-<img src="assets/screenshot1 (1).jpeg"/>
-The course instructor ([Ryan Huang](mailto:huang@cs.jhu.edu)) made some changes to the original
-Pintos labs to tailor for his class. The upstream for this branch comes from 
-[https://github.com/ryanphuang/PintosM](https://github.com/ryanphuang/PintosM). For students in the class, please
-download the release version for this branch at https://github.com/jhu-cs318/pintos.git
-# PintOS_Sem3
-# PintOS_Sem3
-# PintOS_Sem3
+
+# PintOS Operating System 
+
+As part of the CS2043 - Operating Systems module, I undertook this project involving the Pintos teaching operating system, which is designed for the 80x86 architecture. Pintos is a simple and small OS, making it ideal for educational purposes. Despite its simplicity, it supports essential OS concepts such as kernel threads, virtual memory, user programs, and file systems. However, its initial implementations are often incomplete or premature, so what I did was strengthen those already provided systems. I did it in two steps.
+
+
+Upon completion, the improved Pintos OS could theoretically run on an IBM-compatible PC. To facilitate development, we used x86 emulators like Bochs or QEMU, with additional testing on VMWare Player.
+
+
+## Step 1 : Implementing the Thread System
+
+In this segment of the project, I was provided with a minimally functional thread system. My task was to extend this system's functionality to gain a deeper understanding of synchronization problems. The primary focus was on the **threads** directory, with some additional work in the **devices** directory. Compilation of the project was carried out within the **threads** directory.
+
+To achieve this, I utilized various synchronization techniques, including **semaphores**, **locks**, **monitors**, and **interrupt handling**. These techniques were essential in managing concurrency and ensuring that threads operated correctly without conflicts or data inconsistencies.
+
+The following table contains the list of functions the shell should support
+alongside with a brief description of what they are supposed to do.
+
+table
+
+You can see in the following screenshots how my developed operating system works for those commands giving the system information of the machine. If you are also supposed to use this project, make sure to change the name in the **'init.c'** file.
+
+Images
+
+
+
+
+## Step 2: Enable programs to interact with the OS via system calls.
+
+The base code already supports loading and running user programs, but no I/O or interactivity is possible. In this step, I enabled programs to interact with the OS via system calls. For this part of the project, I primarily worked in the ]**userprog** directory, but the task required interacting with almost every other part of Pintos.
+
+Previously, all the code ran as part of the operating system kernel, giving test code full access to privileged system parts. Running user programs changes this dynamic. This project dealt with the consequences of allowing more than one process to run simultaneously, each with a single thread. User programs operate under the illusion that they have the entire machine, so managing memory, scheduling, and other states correctly is crucial to maintain this illusion.
+
+Unlike the previous part, where test code was compiled directly into the kernel requiring specific function interfaces, this step involved testing the OS by running user programs. 
+
+You can see in the following screeshot how my developed os works for the in-built test cases.You can also check how extent your implementation supports for running user programs.
+
+Image
+## Source Tree Overview
+
+Let's take a look at what's inside. Here's the directory structure that you should see in **pintos/src**:
+
+**"threads/"**
+
+Source code for the base kernel,which modified in step 1
+
+
+**"userprog/"**
+
+Source code for the user program loader, which modified during step 2
+
+**"vm/"**
+
+An almost empty directory.
+
+**"filesys/"**
+
+Source code for a basic file system.
+
+**"devices/"**
+
+Source code for I/O device interfacing: keyboard, timer, disk, etc. Need to modify the timer implementation in step 1.
+
+**"lib/"**
+
+An implementation of a subset of the standard C library. The code in this directory is compiled into both the Pintos kernel. In both kernel code and user programs, headers in this directory can be included using the #include <...> notation. 
+
+**"lib/kernel/"**
+
+Parts of the C library that are included only in the Pintos kernel. This also includes implementations of some data types that you are free to use in your kernel code: bitmaps, doubly linked lists, and hash tables. In the kernel, headers in this directory can be included using the #include <...> notation.
+
+**"lib/user/"**
+
+Parts of the C library that are included only in Pintos user programs. In user programs, headers in this directory can be included using the #include <...> notation.
+
+**"tests/"**
+
+Tests for each project. You can modify this code if it helps you test your submission.
+
+**"examples/"**
+
+Example user programs for use.
+
+**"misc/"**
+
+**"utils/"**
