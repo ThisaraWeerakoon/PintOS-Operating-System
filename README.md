@@ -1,84 +1,86 @@
+<h1 align="center">Awesome README Templates</h1>
+<p align="center"><i>A collection of awesome readme templates to display on your github profile.</i></p>
+<div align="center">
+  <a href="https://github.com/elangosundar/awesome-README-templates/stargazers"><img src="https://img.shields.io/github/stars/elangosundar/awesome-README-templates" alt="Stars Badge"/></a>
+<a href="https://github.com/elangosundar/awesome-README-templates/network/members"><img src="https://img.shields.io/github/forks/elangosundar/awesome-README-templates" alt="Forks Badge"/></a>
+<a href="https://github.com/elangosundar/awesome-README-templates/pulls"><img src="https://img.shields.io/github/issues-pr/elangosundar/awesome-README-templates" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/elangosundar/awesome-README-templates/issues"><img src="https://img.shields.io/github/issues/elangosundar/awesome-README-templates" alt="Issues Badge"/></a>
+<a href="https://github.com/elangosundar/awesome-README-templates/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/elangosundar/awesome-README-templates?color=2b9348"></a>
+<a href="https://github.com/elangosundar/awesome-README-templates/blob/master/LICENSE"><img src="https://img.shields.io/github/license/elangosundar/awesome-README-templates?color=2b9348" alt="License Badge"/></a>
+</div>
+<br>
+<p align="center"><i>Loved the project? Please visit our <a href="https://awesome-github-readme-profile.netlify.app">Website</a></i></p>
+<br>
+This repo aims to collect the all `awesome beautiful READMEs profile` and make your Profile look good & Inspire other's.
 
-# PintOS Operating System 
+If you are intersted, will create a PR for to add your `README` profile here.
 
-As part of the CS2043 - Operating Systems module, I undertook this project involving the Pintos teaching operating system, which is designed for the 80x86 architecture. Pintos is a simple and small OS, making it ideal for educational purposes. Despite its simplicity, it supports essential OS concepts such as kernel threads, virtual memory, user programs, and file systems. However, its initial implementations are often incomplete or premature, so what I did was strengthen those already provided systems. I did it in two steps.
+If you like this Repo, Please click the :star:
 
+List of `awesome README Profile` categories mentioned below
 
-Upon completion, the improved Pintos OS could theoretically run on an IBM-compatible PC. To facilitate development, we used x86 emulators like Bochs or QEMU, with additional testing on VMWare Player.
+## Contents
+  - [Github README PROFILE CATEGORY](#github-readme-profile-category)
+  - [List out `Awesome README Profile` Tools](#list-out-awesome-readme-profile-tools)
+  - [List out `Awesome README Profile` Articles](#list-out-awesome-readme-profile-articles)
+  - [Contribute](#contribute)
 
+## Website
 
-## Step 1 : Implementing the Thread System
+Link : https://awesome-github-readme-profile.netlify.app
 
-In this segment of the project, I was provided with a minimally functional thread system. My task was to extend this system's functionality to gain a deeper understanding of synchronization problems. The primary focus was on the **threads** directory, with some additional work in the **devices** directory. Compilation of the project was carried out within the **threads** directory.
-
-To achieve this, I utilized various synchronization techniques, including **semaphores**, **locks**, **monitors**, and **interrupt handling**. These techniques were essential in managing concurrency and ensuring that threads operated correctly without conflicts or data inconsistencies.
-
-The following table contains the list of functions the shell should support
-alongside with a brief description of what they are supposed to do.
-
-table
-
-You can see in the following screenshots how my developed operating system works for those commands giving the system information of the machine. If you are also supposed to use this project, make sure to change the name in the **'init.c'** file.
-
-Images
-
-
-
-
-## Step 2: Enable programs to interact with the OS via system calls.
-
-The base code already supports loading and running user programs, but no I/O or interactivity is possible. In this step, I enabled programs to interact with the OS via system calls. For this part of the project, I primarily worked in the ]**userprog** directory, but the task required interacting with almost every other part of Pintos.
-
-Previously, all the code ran as part of the operating system kernel, giving test code full access to privileged system parts. Running user programs changes this dynamic. This project dealt with the consequences of allowing more than one process to run simultaneously, each with a single thread. User programs operate under the illusion that they have the entire machine, so managing memory, scheduling, and other states correctly is crucial to maintain this illusion.
-
-Unlike the previous part, where test code was compiled directly into the kernel requiring specific function interfaces, this step involved testing the OS by running user programs. 
-
-You can see in the following screeshot how my developed os works for the in-built test cases.You can also check how extent your implementation supports for running user programs.
-
-Image
-## Source Tree Overview
-
-Let's take a look at what's inside. Here's the directory structure that you should see in **pintos/src**:
-
-**"threads/"**
-
-Source code for the base kernel,which modified in step 1
+<a href="https://awesome-github-readme-profile.netlify.app"><img src="https://raw.githubusercontent.com/elangosundar/awesome-README-templates/master/awesome-github-profile.png" alt="Awesome README Templates" /></a>
 
 
-**"userprog/"**
+## Github README PROFILE CATEGORY
 
-Source code for the user program loader, which modified during step 2
+- [ ] [Art](art)
+- [ ] [Code Styled](code-styled)
+- [ ] [Creativity](creativity)
+- [ ] [Flowcharts](flowcharts)
+- [ ] [Default](default)
+- [ ] [Dynamic Realtime](dynamic-realtime)
+- [ ] [Elaborate](elaborate)
+- [ ] [Multimedia](multimedia)
+- [ ] [Short-and-sweet](short-and-sweet)
+- [ ] [Tabular](tabular)
+- [ ] [Pie Charts](pie-charts)
 
-**"vm/"**
+# List out `Awesome README Profile` Tools
 
-An almost empty directory.
+- [Profile Summary For Github](https://profile-summary-for-github.com/search)
+- [Github Readme Stats](https://github.com/anuraghazra/github-readme-stats) - Dynamically generated stats for your github readmes
+- [Profile Activity Generator](https://github.com/omidnikrah/profile-activity-generator) - Generate custom profile activity for your profile README
+- [All Dev Stats in Readme](https://github.com/anmol098/waka-readme-stats) - Are you an early 🐤 or a night 🦉? When are you most productive during the day? What languages you code in? And other stuff... Let's check out in your readme!
+- [Visitor Badge](https://visitor-badge.glitch.me/#docs) - Count visitors for your README.md, Issues, PRs in GitHub
+- [1990s style Visitor Counter](https://twitter.com/ryanlanciaux/status/1283755637126705152) - Add a 1990s style visitor counter with one line of markdown.
+- [Vists Count](https://pufler.dev/git-badges/) - Count visitors for README.md that can be used with shields.io
+- [Shields Project](https://shields.io/) - Use Shields to create profile badges, compatible with Simple Icons
+- [Simple Icons](https://github.com/simple-icons/simple-icons#cdn-usage) - SVG icons for popular brands for your README.md files
+- [Laravel GitHub Profile Visit Counter](https://github.com/caneco/laravel-github-profile-view-counter) - Add on your Laravel project a quick-badge to count your profile visits.
+- [Dev Metrics in Readme](https://github.com/athul/waka-readme) - [WakaTime](https://wakatime.com/) Weekly Metrics on your Profile Readme
+- [Current UTC time](https://github.com/jojoee/jojoee) - Example code of server that can serve dynamic content on GitHub profile
+- [Github Activity in README](https://github.com/jamesgeorge007/github-activity-readme) - Updates `README.md` with the recent GitHub activity of a user
+- [Github Profile README Generator](https://github.com/rahuldkjain/github-profile-readme-generator) - This tool provides an easy way to create github profile readme with latest addons like `visitors count`, `github stats` etc.
+- [Dynamic Profile Page On Github](https://github.com/umutphp/github-action-dynamic-profile-page) - Get dynamically generated list of your commits (of the repositories that the action is configured) on GitHub profile readme.
+- [npm package downloads](https://github.com/maddhruv/github-readme-npm-downloads) - Show all of your npm packages and their total downloads
+- [Feedparser](https://pythonhosted.org/feedparser/) - Convenient processing of RSS files
+- [Github Profile README Generator](https://github.com/arturssmirnovs/github-profile-readme-generator) - This project allows you to create nice and simple github profile readme files.
+- [Github Gist Count Generator](https://github.com/lifeparticle/Gist-Count) - Get gist count for your github readmes.
 
-**"filesys/"**
+# List out `Awesome README Profile` Articles
 
-Source code for a basic file system.
+# Contribute
 
-**"devices/"**
+Contributions are always welcome! Please create a PR to add Github Profile.
 
-Source code for I/O device interfacing: keyboard, timer, disk, etc. Need to modify the timer implementation in step 1.
+## :pencil: License
 
-**"lib/"**
+This project is licensed under [MIT](https://opensource.org/licenses/MIT) license.
 
-An implementation of a subset of the standard C library. The code in this directory is compiled into both the Pintos kernel. In both kernel code and user programs, headers in this directory can be included using the #include <...> notation. 
+## :man_astronaut: Show your support
 
-**"lib/kernel/"**
-
-Parts of the C library that are included only in the Pintos kernel. This also includes implementations of some data types that you are free to use in your kernel code: bitmaps, doubly linked lists, and hash tables. In the kernel, headers in this directory can be included using the #include <...> notation.
-
-**"lib/user/"**
-
-Parts of the C library that are included only in Pintos user programs. In user programs, headers in this directory can be included using the #include <...> notation.
-
-**"tests/"**
-
-Tests for each project. You can modify this code if it helps you test your submission.
-
-**"examples/"**
-
+Give a ⭐️ if this project helped you!
 Example user programs for use.
 
 **"misc/"**
