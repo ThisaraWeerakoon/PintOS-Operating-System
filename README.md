@@ -1,8 +1,7 @@
 <h1 align="center">PintOS Operating System </h1>
 <p align="center"><i>Implementing educational operating system</i></p>
 
-<img src="assets/spaces_rEPCmpm8DJRtInZH7OOg_uploads_git-blob-207ad4ae1875dcad2914623f4e545e0f9ec6c664_pkuos.svg
-" alt="Awesome README Templates" />
+<img src="assets/spaces_rEPCmpm8DJRtInZH7OOg_uploads_git-blob-207ad4ae1875dcad2914623f4e545e0f9ec6c664_pkuos.svg" alt="Awesome README Templates" />
 
 As part of the <b>CS2043 - Operating Systems</b> module, I undertook this project involving the <a href="https://web.stanford.edu/class/cs140/projects/pintos/pintos_1.html">Pintos</a> teaching operating system, which is designed for the 80x86 architecture. Pintos is a simple and small OS, making it ideal for educational purposes. Despite its simplicity, it supports essential OS concepts such as kernel threads, virtual memory, user programs, and file systems. However, its initial implementations are often incomplete or premature, so what I did was strengthen those already provided systems. I did it in two steps.
 
