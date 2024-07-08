@@ -35,6 +35,24 @@ You can see in the following screeshot how my developed os works for the in-buil
 
 <img src="assets/Screenshot 1.jpeg" alt="Awesome README Templates" />
 
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/ThisaraWeerakoon/PintOS-Operating-System
+```
+
+Go to the project directory
+
+```bash
+  cd pintos/src/threads
+  make
+  cd build
+  pintos --
+```
+
 ## Source Tree Overview
 
 Let's take a look at what's inside. Here's the directory structure that you should see in **pintos/src**:
